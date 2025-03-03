@@ -1,18 +1,30 @@
 import React from 'react'
-import surgeonImage from "@/assets/surgeon.svg";
 import { cn } from '@/utils/cn';
 
-export default function AuthCard() {
-    const [isSelected, setIsSelected] = React.useState(false);
+interface AuthCardProps {
+    text: string;
+    image: string;
+    selected: string;
+    setSelected: () => void;
+    type: string;
+};
+
+export default function AuthCard({
+    image,
+    text,
+    selected,
+    setSelected,
+    type
+}: AuthCardProps) {
 
     return (
-        <div className={cn('cursor-pointer border-primary-main border-2 rounded-xl p-4 items-center flex flex-col text-center gap-2 lg:min-w-[50px] lg:min-h-[50px]',
-            isSelected ? 'bg-primary-main text-white' : 'bg-white text-primary-main'
+        <div className={cn('cursor-pointer border-primary-main border-2 rounded-xl p-4 items-center flex flex-col text-center gap-2',
+            selected === type ? 'bg-primary-main text-white' : 'bg-white text-primary-main'
         )}
-            onClick={() => setIsSelected(!isSelected)}
+            onClick={setSelected}
         >
-            <img src={surgeonImage} alt="My SVG" />
-            <p>I'm a surgeon</p>
+            <img src={image} alt="My SVG" />
+            <p className='max-w-20 break-words line-clamp-2'>{text}</p>
         </div>
     )
 }
